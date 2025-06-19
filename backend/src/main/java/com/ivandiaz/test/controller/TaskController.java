@@ -23,8 +23,8 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Task> update(@PathVariable Long id) {
-        Task result =  taskService.complete(id);
-        return ResponseEntity.ok(result);
+        return taskService.complete(id).map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
